@@ -1,24 +1,24 @@
 //====== Copyright (c) 2014, Valve Corporation, All rights reserved. ========//
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
 // Redistributions of source code must retain the above copyright notice, this
 // list of conditions and the following disclaimer.
-// Redistributions in binary form must reproduce the above copyright notice, 
-// this list of conditions and the following disclaimer in the documentation 
+// Redistributions in binary form must reproduce the above copyright notice,
+// this list of conditions and the following disclaimer in the documentation
 // and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 //===========================================================================//
 
@@ -79,24 +79,24 @@ namespace bitbuf
 	//        >> encode >>
 	//        << decode <<
 
-	inline uint32 ZigZagEncode32(int32 n) 
+	inline uint32 ZigZagEncode32(int32 n)
 	{
 		// Note:  the right-shift must be arithmetic
 		return(n << 1) ^ (n >> 31);
 	}
 
-	inline int32 ZigZagDecode32(uint32 n) 
+	inline int32 ZigZagDecode32(uint32 n)
 	{
 		return(n >> 1) ^ -static_cast<int32>(n & 1);
 	}
 
-	inline uint64 ZigZagEncode64(int64 n) 
+	inline uint64 ZigZagEncode64(int64 n)
 	{
 		// Note:  the right-shift must be arithmetic
 		return(n << 1) ^ (n >> 63);
 	}
 
-	inline int64 ZigZagDecode64(uint64 n) 
+	inline int64 ZigZagDecode64(uint64 n)
 	{
 		return(n >> 1) ^ -static_cast<int64>(n & 1);
 	}
@@ -155,7 +155,7 @@ public:
 		return m_nDataBytes;
 	}
 
-	int GetNumBitsLeft( void ) const 
+	int GetNumBitsLeft( void ) const
 	{
 		return m_nDataBits - Tell();
 	}
@@ -220,7 +220,7 @@ public:
 	//
 	// pStr is always null-terminated (unless bufLen is 0).
 	//
-	// pOutNumChars is set to the number of characters left in pStr when the routine is 
+	// pOutNumChars is set to the number of characters left in pStr when the routine is
 	// complete (this will never exceed bufLen-1).
 	//
 	bool ReadString( char *pStr, int bufLen, bool bLine=false, int *pOutNumChars = NULL );

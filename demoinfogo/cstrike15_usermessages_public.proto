@@ -1,28 +1,28 @@
 //====== Copyright (c) 2013, Valve Corporation, All rights reserved. ========//
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
 // Redistributions of source code must retain the above copyright notice, this
 // list of conditions and the following disclaimer.
-// Redistributions in binary form must reproduce the above copyright notice, 
-// this list of conditions and the following disclaimer in the documentation 
+// Redistributions in binary form must reproduce the above copyright notice,
+// this list of conditions and the following disclaimer in the documentation
 // and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 //===========================================================================//
 //
-// Purpose: The file defines our Google Protocol Buffers which are used in over 
+// Purpose: The file defines our Google Protocol Buffers which are used in over
 // the wire messages for the Source engine.
 //
 //=============================================================================
@@ -34,15 +34,15 @@ option optimize_for = SPEED;
 option cc_generic_services = false;
 
 
-// 
+//
 // STYLE NOTES:
 //
 // Use CamelCase CMsgMyMessageName style names for messages.
-// 
+//
 // Use lowercase _ delimited names like my_steam_id for field names, this is non-standard for Steam,
-// but plays nice with the Google formatted code generation.  
-// 
-// Try not to use required fields ever. Only do so if you are really really sure you'll never want them removed. 
+// but plays nice with the Google formatted code generation.
+//
+// Try not to use required fields ever. Only do so if you are really really sure you'll never want them removed.
 // Optional should be preffered as it will make versioning easier and cleaner in the future if someone refactors
 // your message and wants to remove or rename fields.
 //
@@ -52,7 +52,7 @@ option cc_generic_services = false;
 //
 // Similar to fixed64, use fixed32 for RTime32 or other 32 bit values that are frequently larger than
 // 2^28.  It will safe space in those cases, otherwise use int32 which will safe space for smaller values.
-// An exception to this rule for RTime32 is if the value will frequently be zero rather than set to an actual 
+// An exception to this rule for RTime32 is if the value will frequently be zero rather than set to an actual
 // time.
 //
 
@@ -66,7 +66,7 @@ import "netmessages_public.proto";
 //=============================================================================
 
 enum ECstrike15UserMessages
-{ 
+{
 	CS_UM_VGUIMenu		= 1;
 	CS_UM_Geiger		= 2;
 	CS_UM_Train			= 3;
@@ -85,7 +85,7 @@ enum ECstrike15UserMessages
 	CS_UM_SendAudio		= 17;
 	CS_UM_RawAudio		= 18;
 	CS_UM_VoiceMask		= 19;
-	CS_UM_RequestState  = 20;
+	CS_UM_RequestState	= 20;
 	CS_UM_Damage		= 21;
 	CS_UM_RadioText		= 22;
 	CS_UM_HintText		= 23;
@@ -185,7 +185,7 @@ message CCSUsrMsg_HudMsg
 	optional float fade_out_time = 7;
 	optional float hold_time = 9;
 	optional float fx_time = 10;
-	optional string text = 11; 
+	optional string text = 11;
 }
 
 message CCSUsrMsg_Shake
@@ -434,8 +434,8 @@ message CCSUsrMsg_RoundBackupFilenames
 {
 	optional int32 count = 1;
 	optional int32 index = 2;
-    optional string filename = 3;
-    optional string nicename = 4;
+	optional string filename = 3;
+	optional string nicename = 4;
 }
 
 

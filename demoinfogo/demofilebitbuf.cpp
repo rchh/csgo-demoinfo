@@ -1,24 +1,24 @@
 //====== Copyright (c) 2014, Valve Corporation, All rights reserved. ========//
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
 // Redistributions of source code must retain the above copyright notice, this
 // list of conditions and the following disclaimer.
-// Redistributions in binary form must reproduce the above copyright notice, 
-// this list of conditions and the following disclaimer in the documentation 
+// Redistributions in binary form must reproduce the above copyright notice,
+// this list of conditions and the following disclaimer in the documentation
 // and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 //===========================================================================//
 
@@ -46,14 +46,14 @@ const uint32 CBitRead::s_nMaskTable[33] = {
 	( 1 << 17 ) - 1,
 	( 1 << 18 ) - 1,
 	( 1 << 19 ) - 1,
-   	( 1 << 20 ) - 1,
+	( 1 << 20 ) - 1,
 	( 1 << 21 ) - 1,
 	( 1 << 22 ) - 1,
 	( 1 << 23 ) - 1,
 	( 1 << 24 ) - 1,
 	( 1 << 25 ) - 1,
 	( 1 << 26 ) - 1,
-   	( 1 << 27 ) - 1,
+	( 1 << 27 ) - 1,
 	( 1 << 28 ) - 1,
 	( 1 << 29 ) - 1,
 	( 1 << 30 ) - 1,
@@ -63,7 +63,7 @@ const uint32 CBitRead::s_nMaskTable[33] = {
 
 int CBitRead::GetNumBitsRead( void ) const
 {
-	if ( ! m_pData )									   // pesky null ptr bitbufs. these happen.
+	if ( ! m_pData )										// pesky null ptr bitbufs. these happen.
 		return 0;
 
 	int nCurOfs = ( ( int( m_pDataIn ) - int( m_pData ) ) / 4 ) - 1;
@@ -235,7 +235,7 @@ bool CBitRead::Seek( int nPosition )
 			m_nInBufWord = *( pPartial++ );
 			if ( nHead > 1 )
 			{
-				m_nInBufWord |= ( *pPartial++ )  << 8;
+				m_nInBufWord |= ( *pPartial++ ) << 8;
 			}
 			if ( nHead > 2 )
 			{
@@ -288,7 +288,7 @@ void CBitRead::StartReading( const void *pData, int nBytes, int iStartBit, int n
 	m_pBufferEnd = reinterpret_cast< uint32 const * > ( reinterpret_cast< unsigned char const * >( m_pData ) + nBytes );
 	if ( m_pData )
 	{
-		Seek( iStartBit ); 
+		Seek( iStartBit );
 	}
 }
 
@@ -346,9 +346,9 @@ uint32 CBitRead::ReadVarInt32()
 	int count = 0;
 	uint32 b;
 
-	do 
+	do
 	{
-		if ( count == bitbuf::kMaxVarint32Bytes ) 
+		if ( count == bitbuf::kMaxVarint32Bytes )
 		{
 			return result;
 		}
@@ -366,9 +366,9 @@ uint64 CBitRead::ReadVarInt64()
 	int count = 0;
 	uint64 b;
 
-	do 
+	do
 	{
-		if ( count == bitbuf::kMaxVarintBytes ) 
+		if ( count == bitbuf::kMaxVarintBytes )
 		{
 			return result;
 		}
@@ -425,9 +425,9 @@ bool CBitRead::ReadBytes( void *pOut, int nBytes )
 }
 
 #define BITS_PER_INT		32
-inline int GetBitForBitnum( int bitNum ) 
-{ 
-	static int bitsForBitnum[] = 
+inline int GetBitForBitnum( int bitNum )
+{
+	static int bitsForBitnum[] =
 	{
 		( 1 << 0 ),
 		( 1 << 1 ),
@@ -463,7 +463,7 @@ inline int GetBitForBitnum( int bitNum )
 		( 1 << 31 ),
 	};
 
-	return bitsForBitnum[ (bitNum) & (BITS_PER_INT-1) ]; 
+	return bitsForBitnum[ (bitNum) & (BITS_PER_INT-1) ];
 }
 
 float CBitRead::ReadBitAngle( int numbits )
@@ -520,7 +520,7 @@ float CBitRead::ReadBitCoord (void)
 float CBitRead::ReadBitCoordMP( EBitCoordType coordType )
 {
 	bool bIntegral = ( coordType == kCW_Integral );
-	bool bLowPrecision = ( coordType == kCW_LowPrecision );  
+	bool bLowPrecision = ( coordType == kCW_LowPrecision );
 
 	int		intval=0,fractval=0,signbit=0;
 	float	value = 0.0;
@@ -587,7 +587,7 @@ float CBitRead::ReadBitCoordMP( EBitCoordType coordType )
 float CBitRead::ReadBitCellCoord( int bits, EBitCoordType coordType )
 {
 	bool bIntegral = ( coordType == kCW_Integral );
-	bool bLowPrecision = ( coordType == kCW_LowPrecision );  
+	bool bLowPrecision = ( coordType == kCW_LowPrecision );
 
 	int		intval=0,fractval=0;
 	float	value = 0.0;
@@ -614,12 +614,12 @@ void CBitRead::ReadBitVec3Coord( Vector& fa )
 {
 	int		xflag, yflag, zflag;
 
-	// This vector must be initialized! Otherwise, If any of the flags aren't set, 
+	// This vector must be initialized! Otherwise, If any of the flags aren't set,
 	// the corresponding component will not be read and will be stack garbage.
 	fa.Init( 0, 0, 0 );
 
 	xflag = ReadOneBit();
-	yflag = ReadOneBit(); 
+	yflag = ReadOneBit();
 	zflag = ReadOneBit();
 
 	if ( xflag )
@@ -651,7 +651,7 @@ float CBitRead::ReadBitNormal (void)
 void CBitRead::ReadBitVec3Normal( Vector& fa )
 {
 	int xflag = ReadOneBit();
-	int yflag = ReadOneBit(); 
+	int yflag = ReadOneBit();
 
 	if (xflag)
 		fa.x = ReadBitNormal();
