@@ -1,24 +1,24 @@
 //====== Copyright (c) 2014, Valve Corporation, All rights reserved. ========//
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
 // Redistributions of source code must retain the above copyright notice, this
 // list of conditions and the following disclaimer.
-// Redistributions in binary form must reproduce the above copyright notice, 
-// this list of conditions and the following disclaimer in the documentation 
+// Redistributions in binary form must reproduce the above copyright notice,
+// this list of conditions and the following disclaimer in the documentation
 // and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 //===========================================================================//
 
@@ -64,16 +64,16 @@ player_info_t *FindPlayerByEntity(int entityID);
 
 __declspec( noreturn ) void fatal_errorf( const char* fmt, ... )
 {
-    va_list  vlist;
-    char buf[ 1024 ];
+	va_list vlist;
+	char buf[ 1024 ];
 
-    va_start( vlist, fmt);
-    vsnprintf_s( buf, sizeof( buf ), fmt, vlist );
+	va_start( vlist, fmt);
+	vsnprintf_s( buf, sizeof( buf ), fmt, vlist );
 	buf[ sizeof( buf ) - 1 ] = 0;
-    va_end( vlist );
+	va_end( vlist );
 
-    fprintf( stderr, "\nERROR: %s\n", buf );
-    exit( -1 );
+	fprintf( stderr, "\nERROR: %s\n", buf );
+	exit( -1 );
 }
 
 bool CDemoFileDump::Open( const char *filename )
@@ -210,9 +210,9 @@ void PrintNetMessage< CSVCMsg_UserMessage, svc_UserMessage >( CDemoFileDump& Dem
 
 player_info_t *FindPlayerByEntity( int entityId )
 {
-	for ( std::vector< player_info_t >::iterator j = s_PlayerInfos.begin(); j != s_PlayerInfos.end(); j++ ) 
+	for ( std::vector< player_info_t >::iterator j = s_PlayerInfos.begin(); j != s_PlayerInfos.end(); j++ )
 	{
-		if ( j->entityID == entityId ) 
+		if ( j->entityID == entityId )
 		{
 			return &(*j);
 		}
@@ -225,7 +225,7 @@ player_info_t *FindPlayerInfo( int userId )
 {
 	for ( std::vector< player_info_t >::iterator i = s_PlayerInfos.begin(); i != s_PlayerInfos.end(); i++ )
 	{
-		if (  i->userID == userId )
+		if ( i->userID == userId )
 		{
 			return &(*i);
 		}
@@ -562,7 +562,7 @@ static void LowLevelByteSwap( T *output, const T *input )
 	T temp = *output;
 	for ( unsigned int i = 0; i < sizeof( T ); i++ )
 	{
-		( ( unsigned char* )&temp )[i] = ( ( unsigned char* )input )[ sizeof( T ) - ( i + 1 ) ]; 
+		( ( unsigned char* )&temp )[i] = ( ( unsigned char* )input )[ sizeof( T ) - ( i + 1 ) ];
 	}
 	memcpy( output, &temp, sizeof( T ) );
 }
@@ -610,7 +610,7 @@ void ParseStringTableUpdate( CBitRead &buf, int entries, int nMaxEntries, int us
 		}
 
 		const char *pEntry = NULL;
-		char entry[ 1024 ]; 
+		char entry[ 1024 ];
 		char substr[ 1024 ];
 		entry[ 0 ] = 0;
 
@@ -682,7 +682,7 @@ void ParseStringTableUpdate( CBitRead &buf, int entries, int nMaxEntries, int us
 
 			bool bAdded = false;
 			auto existing = FindPlayerByEntity(entryIndex);
-			if ( !existing ) 
+			if ( !existing )
 			{
 				bAdded = true;
 				s_PlayerInfos.push_back(playerInfo);
@@ -731,7 +731,7 @@ void PrintNetMessage< CSVCMsg_CreateStringTable, svc_CreateStringTable >( CDemoF
 			printf( "CreateStringTable:%s:%d:%d:%d:%d:\n", msg.name().c_str(), msg.max_entries(), msg.num_entries(), msg.user_data_size(), msg.user_data_size_bits() );
 		}
 		CBitRead data( &msg.string_data()[ 0 ], msg.string_data().size() );
-		ParseStringTableUpdate( data,  msg.num_entries(), msg.max_entries(), msg.user_data_size(), msg.user_data_size_bits(), msg.user_data_fixed_size(), bIsUserInfo ); 
+		ParseStringTableUpdate( data,  msg.num_entries(), msg.max_entries(), msg.user_data_size(), msg.user_data_size_bits(), msg.user_data_fixed_size(), bIsUserInfo );
 
 		strcpy_s( s_StringTables[ s_nNumStringTables ].szName, msg.name().c_str() );
 		s_StringTables[ s_nNumStringTables ].nMaxEntries = msg.max_entries();
@@ -755,7 +755,7 @@ void PrintNetMessage< CSVCMsg_UpdateStringTable, svc_UpdateStringTable >( CDemoF
 			{
 				printf( "UpdateStringTable:%d(%s):%d:\n", msg.table_id(), s_StringTables[ msg.table_id() ].szName, msg.num_changed_entries() );
 			}
-			ParseStringTableUpdate( data, msg.num_changed_entries(), s_StringTables[ msg.table_id() ].nMaxEntries, 0, 0, 0, bIsUserInfo ); 
+			ParseStringTableUpdate( data, msg.num_changed_entries(), s_StringTables[ msg.table_id() ].nMaxEntries, 0, 0, 0, bIsUserInfo );
 		}
 		else
 		{
@@ -768,7 +768,7 @@ void RecvTable_ReadInfos( const CSVCMsg_SendTable& msg )
 {
 	if ( g_bDumpDataTables )
 	{
-		printf( "%s:%d\n", msg.net_table_name().c_str(), msg.props_size() ); 
+		printf( "%s:%d\n", msg.net_table_name().c_str(), msg.props_size() );
 	
 		for ( int iProp=0; iProp < msg.props_size(); iProp++ )
 		{
@@ -876,8 +876,8 @@ void GatherProps_IterateProps( CSVCMsg_SendTable *pTable, int nServerClass, std:
 	{
 		const CSVCMsg_SendTable::sendprop_t& sendProp = pTable->props( iProp );
 
-		if ( ( sendProp.flags() & SPROP_INSIDEARRAY ) || 
-			 ( sendProp.flags() & SPROP_EXCLUDE ) || 
+		if ( ( sendProp.flags() & SPROP_INSIDEARRAY ) ||
+			 ( sendProp.flags() & SPROP_EXCLUDE ) ||
 			 IsPropExcluded( pTable, sendProp ) )
 		{
 			continue;
@@ -969,11 +969,11 @@ void FlattenDataTable( int nServerClass )
 		while( true )
 		{
 			uint32 currentProp = start;
-			while (currentProp < flattenedProps.size()) 
+			while (currentProp < flattenedProps.size())
 			{
 				const CSVCMsg_SendTable::sendprop_t *prop = flattenedProps[currentProp].m_prop;
 
-				if (prop->priority() == priority || (priority == 64 && (SPROP_CHANGES_OFTEN & prop->flags()))) 
+				if (prop->priority() == priority || (priority == 64 && (SPROP_CHANGES_OFTEN & prop->flags())))
 				{
 					if ( start != currentProp )
 					{
@@ -1002,11 +1002,11 @@ int ReadFieldIndex( CBitRead &entityBitBuffer, int lastIndex, bool bNewWay )
 			return lastIndex + 1;
 		}
 	}
- 
+
 	int ret = 0;
 	if (bNewWay && entityBitBuffer.ReadOneBit())
 	{
-		ret = entityBitBuffer.ReadUBitLong(3);  // read 3 bits
+		ret = entityBitBuffer.ReadUBitLong(3); // read 3 bits
 	}
 	else
 	{
@@ -1027,18 +1027,18 @@ int ReadFieldIndex( CBitRead &entityBitBuffer, int lastIndex, bool bNewWay )
 				break;
 		}
 	}
- 
+
 	if (ret == 0xFFF) // end marker is 4095 for cs:go
 	{
 		return -1;
 	}
- 
+
 	return lastIndex + 1 + ret;
 }
 
 bool ReadNewEntity( CBitRead &entityBitBuffer, EntityEntry *pEntity )
 {
-	bool bNewWay = ( entityBitBuffer.ReadOneBit() == 1 );  // 0 = old way, 1 = new way
+	bool bNewWay = ( entityBitBuffer.ReadOneBit() == 1 ); // 0 = old way, 1 = new way
 
 	std::vector< int > fieldIndices;
 
@@ -1078,7 +1078,7 @@ EntityEntry *FindEntity( int nEntity )
 {
 	for ( std::vector< EntityEntry * >::iterator i = s_Entities.begin(); i != s_Entities.end(); i++ )
 	{
-		if (  (*i)->m_nEntity == nEntity )
+		if ( (*i)->m_nEntity == nEntity )
 		{
 			return *i;
 		}
@@ -1143,7 +1143,7 @@ void PrintNetMessage< CSVCMsg_PacketEntities, svc_PacketEntities >( CDemoFileDum
 
 			bool bIsEntity = ( nHeaderCount >= 0 ) ? true : false;
 
-			if ( bIsEntity  )
+			if ( bIsEntity )
 			{
 				UpdateFlags = FHDR_ZERO;
 
@@ -1215,7 +1215,7 @@ void PrintNetMessage< CSVCMsg_PacketEntities, svc_PacketEntities >( CDemoFileDum
 
 					case LeavePVS:
 						{
-							if ( !bAsDelta )  // Should never happen on a full update.
+							if ( !bAsDelta )	// Should never happen on a full update.
 							{
 								printf( "WARNING: LeavePVS on full update" );
 								updateType = Failed;	// break out
@@ -1263,7 +1263,7 @@ void PrintNetMessage< CSVCMsg_PacketEntities, svc_PacketEntities >( CDemoFileDum
 
 					case PreserveEnt:
 						{
-							if ( !bAsDelta )  // Should never happen on a full update.
+							if ( !bAsDelta )	// Should never happen on a full update.
 							{
 								printf( "WARNING: PreserveEnt on full update" );
 								updateType = Failed;	// break out
@@ -1332,35 +1332,35 @@ void CDemoFileDump::DumpDemoPacket( CBitRead &buf, int length )
 			// unknown net message
 			break;
 
-		HANDLE_NetMsg( NOP );            	// 0
-		HANDLE_NetMsg( Disconnect );        // 1
-		HANDLE_NetMsg( File );              // 2
-		HANDLE_NetMsg( Tick );              // 4
-		HANDLE_NetMsg( StringCmd );         // 5
-		HANDLE_NetMsg( SetConVar );         // 6
-		HANDLE_NetMsg( SignonState );       // 7
-		HANDLE_SvcMsg( ServerInfo );        // 8
-		HANDLE_SvcMsg( SendTable );         // 9
-		HANDLE_SvcMsg( ClassInfo );         // 10
-		HANDLE_SvcMsg( SetPause );          // 11
-		HANDLE_SvcMsg( CreateStringTable ); // 12
-		HANDLE_SvcMsg( UpdateStringTable ); // 13
-		HANDLE_SvcMsg( VoiceInit );         // 14
-		HANDLE_SvcMsg( VoiceData );         // 15
-		HANDLE_SvcMsg( Print );             // 16
-		HANDLE_SvcMsg( Sounds );            // 17
-		HANDLE_SvcMsg( SetView );           // 18
-		HANDLE_SvcMsg( FixAngle );          // 19
-		HANDLE_SvcMsg( CrosshairAngle );    // 20
-		HANDLE_SvcMsg( BSPDecal );          // 21
-		HANDLE_SvcMsg( UserMessage );       // 23
-		HANDLE_SvcMsg( GameEvent );         // 25
-		HANDLE_SvcMsg( PacketEntities );    // 26
-		HANDLE_SvcMsg( TempEntities );      // 27
-		HANDLE_SvcMsg( Prefetch );          // 28
-		HANDLE_SvcMsg( Menu );              // 29
-		HANDLE_SvcMsg( GameEventList );     // 30
-		HANDLE_SvcMsg( GetCvarValue );      // 31
+		HANDLE_NetMsg( NOP );				// 0
+		HANDLE_NetMsg( Disconnect );		// 1
+		HANDLE_NetMsg( File );				// 2
+		HANDLE_NetMsg( Tick );				// 4
+		HANDLE_NetMsg( StringCmd );			// 5
+		HANDLE_NetMsg( SetConVar );			// 6
+		HANDLE_NetMsg( SignonState );		// 7
+		HANDLE_SvcMsg( ServerInfo );		// 8
+		HANDLE_SvcMsg( SendTable );			// 9
+		HANDLE_SvcMsg( ClassInfo );			// 10
+		HANDLE_SvcMsg( SetPause );			// 11
+		HANDLE_SvcMsg( CreateStringTable );	// 12
+		HANDLE_SvcMsg( UpdateStringTable );	// 13
+		HANDLE_SvcMsg( VoiceInit );			// 14
+		HANDLE_SvcMsg( VoiceData );			// 15
+		HANDLE_SvcMsg( Print );				// 16
+		HANDLE_SvcMsg( Sounds );			// 17
+		HANDLE_SvcMsg( SetView );			// 18
+		HANDLE_SvcMsg( FixAngle );			// 19
+		HANDLE_SvcMsg( CrosshairAngle );	// 20
+		HANDLE_SvcMsg( BSPDecal );			// 21
+		HANDLE_SvcMsg( UserMessage );		// 23
+		HANDLE_SvcMsg( GameEvent );			// 25
+		HANDLE_SvcMsg( PacketEntities );	// 26
+		HANDLE_SvcMsg( TempEntities );		// 27
+		HANDLE_SvcMsg( Prefetch );			// 28
+		HANDLE_SvcMsg( Menu );				// 29
+		HANDLE_SvcMsg( GameEventList );		// 30
+		HANDLE_SvcMsg( GetCvarValue );		// 31
 
 #undef HANDLE_SvcMsg
 #undef HANDLE_NetMsg
@@ -1377,7 +1377,7 @@ void CDemoFileDump::HandleDemoPacket()
 	char			data[ NET_MAX_PAYLOAD ];
 
 	m_demofile.ReadCmdInfo( info );
-	m_demofile.ReadSequenceInfo( dummy, dummy ); 
+	m_demofile.ReadSequenceInfo( dummy, dummy );
 
 	CBitRead buf( data, NET_MAX_PAYLOAD );
 	int length = m_demofile.ReadRawData( ( char* )buf.GetBasePointer(), buf.GetNumBytesLeft() );
@@ -1547,9 +1547,9 @@ bool DumpStringTable( CBitRead &buf, bool bIsUserInfo )
 
 				//shouldn't ever exist, but just incase
 				auto existing = FindPlayerByEntity(i);
-				if (!existing) 
+				if (!existing)
 				{
-					if (g_bDumpStringTables) 
+					if (g_bDumpStringTables)
 					{
 						printf("adding:player entity:%d info:\n xuid:%lld\n name:%s\n userID:%d\n guid:%s\n friendsID:%d\n friendsName:%s\n fakeplayer:%d\n ishltv:%d\n filesDownloaded:%d\n",
 							i, playerInfo.xuid, playerInfo.name, playerInfo.userID, playerInfo.guid, playerInfo.friendsID,
@@ -1557,7 +1557,7 @@ bool DumpStringTable( CBitRead &buf, bool bIsUserInfo )
 					}
 					s_PlayerInfos.push_back(playerInfo);
 				}
-				else 
+				else
 				{
 					*existing = playerInfo;
 				}
@@ -1737,4 +1737,3 @@ void CDemoFileDump::DoDump()
 		}
 	}
 }
-

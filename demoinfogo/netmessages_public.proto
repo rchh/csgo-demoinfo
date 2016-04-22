@@ -1,28 +1,28 @@
 //====== Copyright (c) 2013, Valve Corporation, All rights reserved. ========//
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
 // Redistributions of source code must retain the above copyright notice, this
 // list of conditions and the following disclaimer.
-// Redistributions in binary form must reproduce the above copyright notice, 
-// this list of conditions and the following disclaimer in the documentation 
+// Redistributions in binary form must reproduce the above copyright notice,
+// this list of conditions and the following disclaimer in the documentation
 // and/or other materials provided with the distribution.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 // THE POSSIBILITY OF SUCH DAMAGE.
 //===========================================================================//
 //
-// Purpose: The file defines our Google Protocol Buffers which are used in over 
+// Purpose: The file defines our Google Protocol Buffers which are used in over
 // the wire messages for the Source engine.
 //
 //=============================================================================
@@ -47,15 +47,15 @@
 option cc_generic_services = false;
 
 
-// 
+//
 // STYLE NOTES:
 //
 // Use CamelCase CMsgMyMessageName style names for messages.
-// 
+//
 // Use lowercase _ delimited names like my_steam_id for field names, this is non-standard for Steam,
-// but plays nice with the Google formatted code generation.  
-// 
-// Try not to use required fields ever. Only do so if you are really really sure you'll never want them removed. 
+// but plays nice with the Google formatted code generation.
+//
+// Try not to use required fields ever. Only do so if you are really really sure you'll never want them removed.
 // Optional should be preffered as it will make versioning easier and cleaner in the future if someone refactors
 // your message and wants to remove or rename fields.
 //
@@ -65,7 +65,7 @@ option cc_generic_services = false;
 //
 // Similar to fixed64, use fixed32 for RTime32 or other 32 bit values that are frequently larger than
 // 2^28.  It will safe space in those cases, otherwise use int32 which will safe space for smaller values.
-// An exception to this rule for RTime32 is if the value will frequently be zero rather than set to an actual 
+// An exception to this rule for RTime32 is if the value will frequently be zero rather than set to an actual
 // time.
 //
 
@@ -193,7 +193,7 @@ enum SVC_Messages
 	svc_FixAngle 			= 19;		// sets/corrects players viewangle
 	svc_CrosshairAngle 		= 20;		// adjusts crosshair in auto aim mode to lock on traget
 	svc_BSPDecal 			= 21;		// add a static decal to the world BSP
-	svc_UserMessage 		= 23;		// a game specific message 
+	svc_UserMessage 		= 23;		// a game specific message
 	svc_GameEvent 			= 25;		// global game event fired
 	svc_PacketEntities 		= 26;		// non-delta compressed entities
 	svc_TempEntities 		= 27;		// non-reliable event object
@@ -207,7 +207,7 @@ message CSVCMsg_ServerInfo
 {
 	optional int32 protocol = 1;			// protocol version
 	optional int32 server_count = 2;		// number of changelevels since server start
-	optional bool is_dedicated = 3;  		// dedicated server ?	
+	optional bool is_dedicated = 3;			// dedicated server ?	
 	optional bool is_official_valve_server = 4;
 	optional bool is_hltv = 5;				// HLTV server ?
 	optional bool is_replay = 6;			// Replay server ?
@@ -221,9 +221,9 @@ message CSVCMsg_ServerInfo
 	optional int32 player_slot = 13;		// our client slot number
 	optional float tick_interval = 14;		// server tick interval
 	optional string game_dir = 15;			// game directory eg "tf2"
-	optional string map_name = 16;			// name of current map 
-	optional string map_group_name = 17;	// name of current map 
-	optional string sky_name = 18;			// name of current skybox 
+	optional string map_name = 16;			// name of current map
+	optional string map_group_name = 17;	// name of current map
+	optional string sky_name = 18;			// name of current skybox
 	optional string host_name = 19;			// server name
 	optional uint64 ugc_map_id = 22;	
 }
@@ -307,7 +307,7 @@ message CSVCMsg_VoiceData
 	optional int32 client = 1;
 	optional bool proximity = 2;
 	optional fixed64 xuid = 3;
-	optional int32 audible_mask = 4; 
+	optional int32 audible_mask = 4;
 	optional bytes voice_data = 5;	
 }
 
@@ -360,11 +360,11 @@ message CSVCMsg_GameEvent
 	{
 		optional int32 type = 1;			// type
 		optional string val_string = 2;		// TYPE_STRING
-		optional float val_float = 3;		// TYPE_FLOAT 
-		optional int32 val_long = 4;		// TYPE_LONG  
-		optional int32 val_short = 5;		// TYPE_SHORT 
-		optional int32 val_byte = 6;		// TYPE_BYTE  
-		optional bool val_bool = 7;			// TYPE_BOOL  
+		optional float val_float = 3;		// TYPE_FLOAT
+		optional int32 val_long = 4;		// TYPE_LONG
+		optional int32 val_short = 5;		// TYPE_SHORT
+		optional int32 val_byte = 6;		// TYPE_BYTE
+		optional bool val_bool = 7;			// TYPE_BOOL
 		optional uint64 val_uint64 = 8;		// TYPE_UINT64
 		optional bytes val_wstring = 9;		// TYPE_WSTRING
 	}
